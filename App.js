@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { ScrollView } from "react-native";
 import TodoHeader from "./src/Components/TodoHeader";
 import store from "./src/redux/store";
 import { Provider } from "react-redux";
@@ -6,14 +6,11 @@ import { Provider } from "react-redux";
 function App() {
   const RootApp = () => {
     return (
-      <View>
+      <ScrollView>
         <TodoHeader />
-      </View>
-
-
+      </ScrollView>
     );
   };
-
   return (
     <Provider store={store}>
       <RootApp />
