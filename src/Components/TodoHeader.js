@@ -81,7 +81,7 @@ function App() {
                 <FlatList
                     data={todos}
                     renderItem={renderItem}
-                    keyExtractor={item => item.id.toString()}
+                    keyExtractor={item => item.id}
                 />
             </View>
         </View>
