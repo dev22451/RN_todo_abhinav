@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     },
     taskContainer: {
         width: "90%",
-        height: 240,
+        height: 235,
         backgroundColor: "grey",
         marginLeft: 20,
         marginTop: 35,
