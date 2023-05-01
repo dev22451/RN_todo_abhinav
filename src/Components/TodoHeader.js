@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Image, } from 'react-native';
 import Modal from "react-native-modal";
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo, deleteTodo, editTodo, selectFormattedDateTime } from '../redux/todoSlice';
+import { addTodo, deleteTodo, editTodo } from '../redux/todoSlice';
 
 import editicon from "../Assests/edit1.png"
 import deleteicon from "../Assests/remove.png"
@@ -16,6 +16,7 @@ function App() {
     const [form, setForm] = useState(false)
     const todos = useSelector(state => state.todos.todo);
     const dispatch = useDispatch();
+
 
     const handleAddTodo = () => {
         if (title.trim() !== '') {
@@ -52,8 +53,8 @@ function App() {
             <View style={styles.taskContainer}>
                 <View style={styles.task}>
                     <Text style={styles.todo} >{item.title}</Text>
-                    <Text style={styles.date}>{selectFormattedDateTime(item.datetime)}</Text>
-
+                    <Text style={styles.date}>{item.date}</Text>
+                    <Text style={styles.time}>{item.time}</Text>
                 </View>
                 <View style={styles.btnicon}>
                     <TouchableOpacity
@@ -76,7 +77,7 @@ function App() {
     };
 
     return (
-        <View>
+        <View style={styles.body}>
             <View style={styles.heading}>
                 <Image source={menu} style={styles.menu} />
                 <Text style={styles.todoheading}>Task Manager</Text>
@@ -94,7 +95,7 @@ function App() {
                 <Text style={styles.tab2} >Task Done</Text>
             </View>
             <Modal
-                animationType={'fade'}
+                animationType={'slide'}
                 transparent={false}
                 visible={form}
 
@@ -128,12 +129,18 @@ function App() {
                     keyExtractor={item => item.id}
                 />
             </View>
-            <TouchableOpacity style={styles.btn} onPress={modal} ><Text style={styles.btntext}>Add Task</Text></TouchableOpacity>
+            <View style={styles.modal}>
+                <TouchableOpacity style={styles.btn} onPress={modal} ><Text style={styles.btntext}> + Add Task</Text></TouchableOpacity>
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    body: {
+        position: "relative",
+
+    },
     heading: {
         marginTop: 10,
         marginBottom: 20,
@@ -210,23 +217,19 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     container: {
-        paddingHorizontal: 10,
-        paddingVertical: 40,
         flex: 1,
-        backgroundColor: "white",
         alignItems: 'center',
         justifyContent: 'center',
-        // Width: 200,
-        // height: 200,
-
+        paddingHorizontal: 10,
+        backgroundColor: "aqua",
+        height: 30,
 
     },
     inputContainer: {
         flexDirection: "row",
         alignItems: "center",
         marginBottom: 20,
-        marginTop: 20,
-        marginLeft: 14,
+        marginLeft: 10,
     },
     btncontainer: {
         flexDirection: "row"
@@ -235,9 +238,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#eee",
         height: 70,
-        paddingHorizontal: 10,
-        borderRadius: 10,
-        fontSize: 20,
+        paddingHorizontal: 20,
+        borderRadius: 15,
+        fontSize: 22,
         alignItems: "center",
     },
     button: {
@@ -270,40 +273,45 @@ const styles = StyleSheet.create({
     },
     taskContainer: {
         width: "90%",
-        height: 190,
+        height: 240,
         backgroundColor: "grey",
         marginLeft: 20,
-        marginTop: 20,
-        borderRadius: 15,
+        marginTop: 35,
+        borderRadius: 20,
         marginRight: 20,
     },
     task: {
-        marginTop: 10,
+        marginTop: 15,
         marginLeft: 20,
-        marginRight: 100,
+        marginRight: 20,
     },
     todo: {
-        fontSize: 22,
+        fontSize: 25,
         fontWeight: "bold"
     },
     date: {
-        fontSize: 18,
+        fontSize: 20,
+        marginTop: 20,
+
+    },
+    time: {
+        fontSize: 20,
         marginTop: 20,
     },
     btnicon: {
         flexDirection: "row"
     },
     deleteButton: {
-        marginLeft: 10,
-        marginTop: 60,
+        marginLeft: 5,
+        marginTop: 55,
     },
     delimg: {
         width: 39,
         height: 39
     },
     editButton: {
-        marginTop: 67,
-        marginLeft: 280,
+        marginTop: 59,
+        marginLeft: 290,
 
     },
     img: {
@@ -315,21 +323,25 @@ const styles = StyleSheet.create({
     },
     btn: {
         flex: 1,
-        backgroundColor: "aqua",
-        height: 45,
-        width: 120,
+        backgroundColor: "black",
+
+        height: 50,
+        width: 125,
         borderRadius: 10,
         marginLeft: 140,
-        textAlign: "center",
         marginTop: 30,
+        marginBottom: 30,
     },
     btntext: {
-        marginTop: 5,
+        marginTop: 9,
+        marginRight: 5,
         textAlign: "center",
         fontSize: 20,
         fontFamily: "bold",
+        color: "white",
 
     },
+
 });
 
 export default App;

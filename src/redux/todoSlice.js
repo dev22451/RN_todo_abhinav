@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import moment from 'moment';
 
 const initialState = {
     todo: [],
@@ -10,8 +9,15 @@ const todoSlice = createSlice({
     initialState,
     reducers: {
         addTodo: (state, action) => {
-            state.todo.push(action.payload);
+            state.todo.push({
+                id: Math.random(),
+                title: action.payload.title,
+                date: new Date().toDateString(),
+                time: new Date().toLocaleTimeString()
+            });
+
         },
+
         deleteTodo: (state, action) => {
             state.todo = state.todo.filter(todo => todo.id !== action.payload);
         },
@@ -23,10 +29,6 @@ const todoSlice = createSlice({
         },
     },
 });
-
-export const selectFormattedDateTime = (dateTime) => {
-    return moment(dateTime).format('MMMM Do YYYY, h:mm a');
-};
 
 export const { addTodo, deleteTodo, editTodo } = todoSlice.actions;
 
