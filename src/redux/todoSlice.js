@@ -9,8 +9,15 @@ const todoSlice = createSlice({
     initialState,
     reducers: {
         addTodo: (state, action) => {
-            state.todo.push(action.payload);
+            state.todo.push({
+                id: Math.random(),
+                title: action.payload.title,
+                date: new Date().toDateString(),
+                time: new Date().toLocaleTimeString()
+            });
+
         },
+
         deleteTodo: (state, action) => {
             state.todo = state.todo.filter(todo => todo.id !== action.payload);
         },
@@ -24,5 +31,6 @@ const todoSlice = createSlice({
 });
 
 export const { addTodo, deleteTodo, editTodo } = todoSlice.actions;
+
 
 export default todoSlice.reducer;
